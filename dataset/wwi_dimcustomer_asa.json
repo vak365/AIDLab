@@ -1,5 +1,5 @@
 {
-    "name": "wwi_dimcity_asa",
+    "name": "wwi_dimcustomer_asa",
     "properties": {
         "linkedServiceName": {
             "referenceName": "sqlpool01",
@@ -9,47 +9,38 @@
         "type": "AzureSqlDWTable",
         "schema": [
             {
-                "name": "CityKey",
+                "name": "CustomerKey",
                 "type": "int",
                 "precision": 10
             },
             {
-                "name": "WWICityID",
+                "name": "WWICustomerID",
                 "type": "int",
                 "precision": 10
             },
             {
-                "name": "City",
+                "name": "Customer",
                 "type": "nvarchar"
             },
             {
-                "name": "StateProvince",
+                "name": "BillToCustomer",
                 "type": "nvarchar"
             },
             {
-                "name": "Country",
+                "name": "Category",
                 "type": "nvarchar"
             },
             {
-                "name": "Continent",
+                "name": "BuyingGroup",
                 "type": "nvarchar"
             },
             {
-                "name": "SalesTerritory",
+                "name": "PrimaryContact",
                 "type": "nvarchar"
             },
             {
-                "name": "Region",
+                "name": "PostalCode",
                 "type": "nvarchar"
-            },
-            {
-                "name": "Subregion",
-                "type": "nvarchar"
-            },
-            {
-                "name": "LatestRecordedPopulation",
-                "type": "bigint",
-                "precision": 19
             },
             {
                 "name": "ValidFrom",
@@ -69,7 +60,7 @@
         ],
         "typeProperties": {
             "schema": "wwi",
-            "table": "DimCity"
+            "table": "DimCustomer"
         }
     },
     "type": "Microsoft.Synapse/workspaces/datasets"

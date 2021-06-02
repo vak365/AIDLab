@@ -1,5 +1,5 @@
 {
-    "name": "wwi_dimcity_asa",
+    "name": "wwi_dimdate_asa",
     "properties": {
         "linkedServiceName": {
             "referenceName": "sqlpool01",
@@ -9,67 +9,71 @@
         "type": "AzureSqlDWTable",
         "schema": [
             {
-                "name": "CityKey",
+                "name": "Date",
+                "type": "date"
+            },
+            {
+                "name": "DayNumber",
                 "type": "int",
                 "precision": 10
             },
             {
-                "name": "WWICityID",
+                "name": "Day",
+                "type": "nvarchar"
+            },
+            {
+                "name": "Month",
+                "type": "nvarchar"
+            },
+            {
+                "name": "ShortMonth",
+                "type": "nvarchar"
+            },
+            {
+                "name": "CalendarMonthNumber",
                 "type": "int",
                 "precision": 10
             },
             {
-                "name": "City",
+                "name": "CalendarMonthLabel",
                 "type": "nvarchar"
             },
             {
-                "name": "StateProvince",
+                "name": "CalendarYear",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "CalendarYearLabel",
                 "type": "nvarchar"
             },
             {
-                "name": "Country",
+                "name": "FiscalMonthNumber",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "FiscalMonthLabel",
                 "type": "nvarchar"
             },
             {
-                "name": "Continent",
+                "name": "FiscalYear",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "FiscalYearLabel",
                 "type": "nvarchar"
             },
             {
-                "name": "SalesTerritory",
-                "type": "nvarchar"
-            },
-            {
-                "name": "Region",
-                "type": "nvarchar"
-            },
-            {
-                "name": "Subregion",
-                "type": "nvarchar"
-            },
-            {
-                "name": "LatestRecordedPopulation",
-                "type": "bigint",
-                "precision": 19
-            },
-            {
-                "name": "ValidFrom",
-                "type": "datetime2",
-                "scale": 7
-            },
-            {
-                "name": "ValidTo",
-                "type": "datetime2",
-                "scale": 7
-            },
-            {
-                "name": "LineageKey",
+                "name": "ISOWeekNumber",
                 "type": "int",
                 "precision": 10
             }
         ],
         "typeProperties": {
             "schema": "wwi",
-            "table": "DimCity"
+            "table": "DimDate"
         }
     },
     "type": "Microsoft.Synapse/workspaces/datasets"
