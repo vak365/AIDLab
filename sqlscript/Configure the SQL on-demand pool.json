@@ -1,0 +1,17 @@
+{
+	"name": "Configure the SQL on-demand pool",
+	"properties": {
+		"content": {
+			"query": "CREATE DATABASE SQLOnDemand01\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "master"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
