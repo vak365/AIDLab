@@ -84,7 +84,7 @@
 					"    .withColumnRenamed('Total Chiller Items', 'TotalChillerItems') \\\n",
 					"    .withColumnRenamed('Lineage Key', 'LineageKey')"
 				],
-				"execution_count": 1
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -93,7 +93,7 @@
 					"from datetime import datetime\n",
 					"from dateutil.relativedelta import relativedelta"
 				],
-				"execution_count": null
+				"execution_count": 3
 			},
 			{
 				"cell_type": "markdown",
@@ -126,7 +126,7 @@
 					"\n",
 					"    start_date = end_date + relativedelta(days=1)"
 				],
-				"execution_count": null
+				"execution_count": 4
 			},
 			{
 				"cell_type": "markdown",
@@ -161,7 +161,7 @@
 					"\n",
 					"    start_date = end_date + relativedelta(days=1)"
 				],
-				"execution_count": null
+				"execution_count": 5
 			}
 		]
 	}
