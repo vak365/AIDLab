@@ -2,7 +2,7 @@
 	"name": "Configure the SQL on-demand pool",
 	"properties": {
 		"content": {
-			"query": "CREATE DATABASE SQLOnDemand01\n",
+			"query": "CREATE DATABASE SQLOnDemand01\n\n\nCREATE CREDENTIAL [https://<azsynapseaiddl>.dfs.core.windows.net]\nWITH IDENTITY='User Identity';",
 			"metadata": {
 				"language": "sql"
 			},
