@@ -1,0 +1,144 @@
+{
+	"name": "Setup - Export Sales to Data Lake",
+	"properties": {
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "python"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"%%pyspark\n",
+					"wwi_sales = spark \\\n",
+					"    .read \\\n",
+					"    .option(\"sep\",\"|\") \\\n",
+					"    .load('abfss://dev@<primary_storage>.dfs.core.windows.net/bronze/wwi-factsale.csv', format=\"csv\", header=True)\n",
+					"\n",
+					"wwi_sales = wwi_sales \\\n",
+					"    .withColumnRenamed('Sale Key', 'SaleKey') \\\n",
+					"    .withColumnRenamed('City Key', 'CityKey') \\\n",
+					"    .withColumnRenamed('Customer Key', 'CustomerKey') \\\n",
+					"    .withColumnRenamed('Bill To Customer Key', 'BillToCustomerKey') \\\n",
+					"    .withColumnRenamed('Stock Item Key', 'StockItemKey') \\\n",
+					"    .withColumnRenamed('Invoice Date Key', 'InvoiceDateKey') \\\n",
+					"    .withColumnRenamed('Delivery Date Key', 'DeliveryDateKey') \\\n",
+					"    .withColumnRenamed('Salesperson Key', 'SalespersonKey') \\\n",
+					"    .withColumnRenamed('WWI Invoice ID', 'WWIInvoiceID') \\\n",
+					"    .withColumnRenamed('Description', 'Description') \\\n",
+					"    .withColumnRenamed('Package', 'Package') \\\n",
+					"    .withColumnRenamed('Quantity', 'Quantity') \\\n",
+					"    .withColumnRenamed('Unit Price', 'UnitPrice') \\\n",
+					"    .withColumnRenamed('Tax Rate', 'TaxRate') \\\n",
+					"    .withColumnRenamed('Total Excluding Tax', 'TotalExcludingTax') \\\n",
+					"    .withColumnRenamed('Tax Amount', 'TaxAmount') \\\n",
+					"    .withColumnRenamed('Profit', 'Profit') \\\n",
+					"    .withColumnRenamed('Total Including Tax', 'TotalIncludingTax') \\\n",
+					"    .withColumnRenamed('Total Dry Items', 'TotalDryItems') \\\n",
+					"    .withColumnRenamed('Total Chiller Items', 'TotalChillerItems') \\\n",
+					"    .withColumnRenamed('Lineage Key', 'LineageKey')"
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"import numpy as np\n",
+					"from datetime import datetime\n",
+					"from dateutil.relativedelta import relativedelta"
+				],
+				"execution_count": null
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"### Export WWI sales data to parquet files\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"quarters = 20\n",
+					"start_date = datetime(2012, 1, 1)\n",
+					"\n",
+					"for quarter in np.arange(1, quarters + 1):\n",
+					"\n",
+					"    quarter_number = 4 if quarter % 4 == 0 else quarter % 4\n",
+					"    end_date = start_date + relativedelta(months=3) + relativedelta(days=-1)\n",
+					"    \n",
+					"    print(f'Exporting data for {start_date.year} Q{quarter_number} ({start_date:%Y-%m-%d} : {end_date:%Y-%m-%d}) ...')\n",
+					"\n",
+					"    storage_path_parquet = f'abfss://wwi@<primary_storage>.dfs.core.windows.net/factsale-parquet/{start_date.year}/Q{quarter_number}'\n",
+					"\n",
+					"    wwi_sales \\\n",
+					"        .where((wwi_sales['InvoiceDateKey'] >= f'{start_date:%Y-%m-%d}') & (wwi_sales['InvoiceDateKey'] <= f'{end_date:%Y-%m-%d}')) \\\n",
+					"        .write \\\n",
+					"        .partitionBy('InvoiceDateKey') \\\n",
+					"        .mode(\"overwrite\") \\\n",
+					"        .parquet(storage_path_parquet)\n",
+					"\n",
+					"    start_date = end_date + relativedelta(days=1)"
+				],
+				"execution_count": 28
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"### Export WWI sales data to CSV files\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"quarters = 20\n",
+					"start_date = datetime(2012, 1, 1)\n",
+					"\n",
+					"for quarter in np.arange(1, quarters + 1):\n",
+					"\n",
+					"    quarter_number = 4 if quarter % 4 == 0 else quarter % 4\n",
+					"    end_date = start_date + relativedelta(months=3) + relativedelta(days=-1)\n",
+					"    \n",
+					"    print(f'Exporting data for {start_date.year} Q{quarter_number} ({start_date:%Y-%m-%d} : {end_date:%Y-%m-%d}) ...')\n",
+					"\n",
+					"    storage_path_csv = f'abfss://wwi@<primary_storage>.dfs.core.windows.net/factsale-csv/{start_date.year}/Q{quarter_number}'\n",
+					"\n",
+					"    wwi_sales \\\n",
+					"        .where((wwi_sales['InvoiceDateKey'] >= f'{start_date:%Y-%m-%d}') & (wwi_sales['InvoiceDateKey'] <= f'{end_date:%Y-%m-%d}')) \\\n",
+					"        .write \\\n",
+					"        .partitionBy('InvoiceDateKey') \\\n",
+					"        .mode(\"overwrite\") \\\n",
+					"        .option(\"quote\", \"\\u0000\") \\\n",
+					"        .option(\"sep\",\"|\") \\\n",
+					"        .csv(storage_path_csv, header=True)\n",
+					"\n",
+					"    start_date = end_date + relativedelta(days=1)"
+				],
+				"execution_count": 31
+			}
+		]
+	}
+}
