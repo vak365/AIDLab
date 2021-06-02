@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "az-synapse-aid-lab-ws"
+		},
+		"asadatalake01_accountKey": {
+			"value": ""
+		},
+		"asastore01_connectionString": {
+			"value": ""
+		},
+		"az-synapse-aid-lab-ws-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"sqlpool01_connectionString": {
+			"value": ""
+		},
+		"asadatalake01_properties_typeProperties_url": {
+			"value": "https://azsynapseaiddl.dfs.core.windows.net"
+		},
+		"az-synapse-aid-lab-ws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://azsynapseaiddl.dfs.core.windows.net"
+		}
+	}
+}
