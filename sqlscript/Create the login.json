@@ -1,0 +1,17 @@
+{
+	"name": "Create the login",
+	"properties": {
+		"content": {
+			"query": "CREATE LOGIN [asa.sql.staging]\nWITH PASSWORD = 'Temp1234'\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "sqlpool01",
+				"databaseName": "master"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
