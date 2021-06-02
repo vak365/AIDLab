@@ -2,13 +2,13 @@
 	"name": "Create the login",
 	"properties": {
 		"content": {
-			"query": "CREATE LOGIN [asa.sql.staging]\nWITH PASSWORD = 'Temp1234'\nGO",
+			"query": "CREATE LOGIN [asa.sql.staging]\nWITH PASSWORD = 'Temp1234'\nGO\n\n\nCREATE USER [asa.sql.staging]\n    FOR LOGIN [asa.sql.staging]\n    WITH DEFAULT_SCHEMA = dbo\nGO\n\n-- Add user to the required roles\n\nEXEC sp_addrolemember N'db_datareader', N'asa.sql.staging'\nGO\n\nEXEC sp_addrolemember N'db_datawriter', N'asa.sql.staging'\nGO\n\nEXEC sp_addrolemember N'db_ddladmin', N'asa.sql.staging'\nGO",
 			"metadata": {
 				"language": "sql"
 			},
 			"currentConnection": {
 				"poolName": "sqlpool01",
-				"databaseName": "master"
+				"databaseName": "sqlpool01"
 			},
 			"resultLimit": 5000
 		},
