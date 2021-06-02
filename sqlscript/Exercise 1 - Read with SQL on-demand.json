@@ -1,0 +1,17 @@
+{
+	"name": "Exercise 1 - Read with SQL on-demand",
+	"properties": {
+		"content": {
+			"query": "SELECT\n    COUNT(*)\nFROM\n    OPENROWSET(\n        BULK 'https://<primary_storage>.dfs.core.windows.net/wwi/factsale-csv/2012/Q1/*/*',\n \t\tFORMAT = 'CSV', \n\t\tFIELDTERMINATOR ='|', \n        FIELDQUOTE = '',\n\t\tFIRSTROW = 2\n    ) \nWITH \n    (\n        SalesKey BIGINT,\n        CityKey INT,\n        CustomerKey INT,\n        BillToCustomerKey INT,\n        StockItemKey INT,\n        DeliveryDateKey DATE,\n        SalesPersonKey INT,\n        WWIInvoiceID INT,\n        Description VARCHAR(200),\n        Package VARCHAR(10),\n        Quantity INT,\n        UnitPrice DECIMAL(6,2),\n        TaxRate DECIMAL(6,2),\n        TotalExcludingTax DECIMAL(6,2),\n        TaxAmount DECIMAL(6,2),\n        Profit DECIMAL(6,2),\n        TotalIncludingTax DECIMAL(6,2),\n        TotalDryItems INT,\n        TotalChillerItems INT,\n        LineageKey INT\n    ) as S",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "master"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

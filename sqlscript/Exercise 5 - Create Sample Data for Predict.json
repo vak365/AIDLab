@@ -1,0 +1,17 @@
+{
+	"name": "Exercise 5 - Create Sample Data for Predict",
+	"properties": {
+		"content": {
+			"query": "DROP TABLE [wwi].[SampleData]; \n\n\nCREATE TABLE [wwi].[SampleData] \n(\n    [customerkey] REAL, \n    [stockitemkey] REAL\n);\n\n\nINSERT INTO [wwi].[SampleData] ([customerkey], [stockitemkey])\nVALUES ( 11, 1 );\n\n\nSELECT * FROM [wwi].[SampleData];\n\n\nCREATE TABLE [wwi].[SampleData] \n(\n    [features] REAL,\n    [features2] REAL\n);\n\n\nINSERT INTO [wwi].[SampleData] ([features], [features2])\nVALUES ( 11, 1 );\n\n\nSELECT * FROM [wwi].[SampleData];",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "master"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

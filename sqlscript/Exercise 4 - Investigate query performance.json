@@ -1,0 +1,17 @@
+{
+	"name": "Exercise 4 - Investigate query performance",
+	"properties": {
+		"content": {
+			"query": "SELECT  count(*) from wwi_perf.FactSale_Slow\n\nSELECT  count(*) from wwi_perf.FactSale_Fast\n\nSELECT\n    FS.CustomerKey\n    ,MIN(FS.Quantity) as MinQuantity\n    ,MAX(FS.Quantity) as MaxQuantity\n    ,AVG(FS.TaxRate) as AvgTaxRate\n    ,AVG(FS.TaxAmount) as AvgTaxAmount\n    ,AVG(FS.TotalExcludingTax) as AverageSaleWithoutTax\n    ,AVG(FS.TotalIncludingTax) as AverageSaleWithTax\n    ,COUNT(DISTINCT FS.StockItemKey) as DistinctStockItems\n    ,COUNT(DISTINCT DC.Country) as DistinctCountries\nFROM\n    wwi_perf.FactSale_Slow FS\n    join wwi.DimCity DC ON\n        DC.CityKey = FS.CityKey\nGROUP BY\n    FS.CustomerKey\n\nSELECT\n    FS.CustomerKey\n    ,MIN(FS.Quantity) as MinQuantity\n    ,MAX(FS.Quantity) as MaxQuantity\n    ,AVG(FS.TaxRate) as AvgTaxRate\n    ,AVG(FS.TaxAmount) as AvgTaxAmount\n    ,AVG(FS.TotalExcludingTax) as AverageSaleWithoutTax\n    ,AVG(FS.TotalIncludingTax) as AverageSaleWithTax\n    ,COUNT(DISTINCT FS.StockItemKey) as DistinctStockItems\n    ,COUNT(DISTINCT DC.Country) as DistinctCountries\nFROM\n    wwi_perf.FactSale_Fast FS\n    join wwi.DimCity DC ON\n        DC.CityKey = FS.CityKey\nGROUP BY\n    FS.CustomerKey",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "master"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
