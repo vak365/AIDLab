@@ -49,12 +49,17 @@
 		"cells": [
 			{
 				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					}
+				},
 				"source": [
 					"%%pyspark\n",
 					"wwi_sales = spark \\\n",
 					"    .read \\\n",
 					"    .option(\"sep\",\"|\") \\\n",
-					"    .load('abfss://dev@<primary_storage>.dfs.core.windows.net/bronze/wwi-factsale.csv', format=\"csv\", header=True)\n",
+					"    .load('abfss://dev@asadatalake01.dfs.core.windows.net/bronze/wwi-factsale.csv', format=\"csv\", header=True)\n",
 					"\n",
 					"wwi_sales = wwi_sales \\\n",
 					"    .withColumnRenamed('Sale Key', 'SaleKey') \\\n",
@@ -110,7 +115,7 @@
 					"    \n",
 					"    print(f'Exporting data for {start_date.year} Q{quarter_number} ({start_date:%Y-%m-%d} : {end_date:%Y-%m-%d}) ...')\n",
 					"\n",
-					"    storage_path_parquet = f'abfss://wwi@<primary_storage>.dfs.core.windows.net/factsale-parquet/{start_date.year}/Q{quarter_number}'\n",
+					"    storage_path_parquet = f'abfss://wwi@asadatalake01.dfs.core.windows.net/factsale-parquet/{start_date.year}/Q{quarter_number}'\n",
 					"\n",
 					"    wwi_sales \\\n",
 					"        .where((wwi_sales['InvoiceDateKey'] >= f'{start_date:%Y-%m-%d}') & (wwi_sales['InvoiceDateKey'] <= f'{end_date:%Y-%m-%d}')) \\\n",
@@ -143,7 +148,7 @@
 					"    \n",
 					"    print(f'Exporting data for {start_date.year} Q{quarter_number} ({start_date:%Y-%m-%d} : {end_date:%Y-%m-%d}) ...')\n",
 					"\n",
-					"    storage_path_csv = f'abfss://wwi@<primary_storage>.dfs.core.windows.net/factsale-csv/{start_date.year}/Q{quarter_number}'\n",
+					"    storage_path_csv = f'abfss://wwi@asadatalake01.dfs.core.windows.net/factsale-csv/{start_date.year}/Q{quarter_number}'\n",
 					"\n",
 					"    wwi_sales \\\n",
 					"        .where((wwi_sales['InvoiceDateKey'] >= f'{start_date:%Y-%m-%d}') & (wwi_sales['InvoiceDateKey'] <= f'{end_date:%Y-%m-%d}')) \\\n",
