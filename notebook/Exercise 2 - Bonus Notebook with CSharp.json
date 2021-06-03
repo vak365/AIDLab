@@ -1,6 +1,10 @@
 {
 	"name": "Exercise 2 - Bonus Notebook with CSharp",
 	"properties": {
+		"bigDataPool": {
+			"referenceName": "SparkPool01",
+			"type": "BigDataPoolReference"
+		},
 		"sessionProperties": {
 			"driverMemory": "28g",
 			"driverCores": 4,
@@ -20,10 +24,25 @@
 			},
 			"kernelspec": {
 				"name": "synapse_sparkdotnet",
-				"display_name": "csharp"
+				"display_name": "Synapse SparkDotNet"
 			},
 			"language_info": {
 				"name": "csharp"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/06a2d317-3061-45f6-89b4-4ef3424d6693/resourceGroups/azure-synapse-aidlab-rg/providers/Microsoft.Synapse/workspaces/az-synapse-aid-lab-ws/bigDataPools/SparkPool01",
+				"name": "SparkPool01",
+				"type": "Spark",
+				"endpoint": "https://az-synapse-aid-lab-ws.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/SparkPool01",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
 		},
@@ -32,9 +51,9 @@
 				"cell_type": "code",
 				"source": [
 					"// Configure the connection to the data lake\n",
-					"var adlsPath = \"abfss://wwi@<primary_storage>.dfs.core.windows.net\";"
+					"var adlsPath = \"abfss://wwi@azsynapseaiddl.dfs.core.windows.net\";"
 				],
-				"execution_count": null
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
@@ -44,7 +63,7 @@
 					"sales.Show(5);\n",
 					"sales.PrintSchema();"
 				],
-				"execution_count": null
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
@@ -53,9 +72,9 @@
 					"using System.Collections.Generic;\n",
 					"\n",
 					"// Set up a JDBC connection to Azure Synapse Analytics\n",
-					"var jdbcUsername = \"asa.sql.staging@<workspace>\";\n",
-					"var jdbcPassword = \"<sql_staging_password>\";\n",
-					"var jdbcConnectionString = $\"jdbc:sqlserver://<workspace>.sql.azuresynapse.net:1433;database=<sql_pool>;\";\n",
+					"var jdbcUsername = \"asa.sql.staging@az-synapse-aid-lab-ws\";\n",
+					"var jdbcPassword = \"Temp1234\";\n",
+					"var jdbcConnectionString = $\"jdbc:sqlserver://az-synapse-aid-lab-ws.sql.azuresynapse.net:1433;database=sqlpool01;\";\n",
 					"\n",
 					"// Set target table name\n",
 					"var tableName = $\"wwi_staging.Sale_CSharp\";\n",
@@ -80,7 +99,7 @@
 					"    .Mode(\"append\")\n",
 					"    .Save();"
 				],
-				"execution_count": null
+				"execution_count": 6
 			}
 		]
 	}
