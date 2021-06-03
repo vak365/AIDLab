@@ -4544,9 +4544,8 @@
 				"nodeCount": 10,
 				"cores": 4,
 				"memory": 28,
-				"automaticScaleJobs": false
-			},
-			"sessionKeepAliveTimeout": 30
+				"extraHeader": null
+			}
 		},
 		"cells": [
 			{
@@ -4562,6 +4561,7 @@
 					"df = spark.read.load('abfss://wwi@azsynapseaiddl.dfs.core.windows.net/factsale-parquet/2012/Q1/InvoiceDateKey=2012-01-01/part-00007-82fb0c25-17e0-4fc1-8f67-dd23466240a5.c000.snappy.parquet', format='parquet')\r\n",
 					"display(df.limit(100))"
 				],
+				"attachments": null,
 				"execution_count": 4
 			},
 			{
@@ -4587,6 +4587,7 @@
 					"\r\n",
 					"display(data_path.limit(100))"
 				],
+				"attachments": null,
 				"execution_count": 3
 			}
 		]

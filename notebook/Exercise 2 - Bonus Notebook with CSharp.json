@@ -1,6 +1,8 @@
 {
 	"name": "Exercise 2 - Bonus Notebook with CSharp",
 	"properties": {
+		"nbformat": 0,
+		"nbformat_minor": 0,
 		"bigDataPool": {
 			"referenceName": "SparkPool01",
 			"type": "BigDataPoolReference"
@@ -42,9 +44,8 @@
 				"nodeCount": 10,
 				"cores": 4,
 				"memory": 28,
-				"automaticScaleJobs": false
-			},
-			"sessionKeepAliveTimeout": 30
+				"extraHeader": null
+			}
 		},
 		"cells": [
 			{
@@ -53,6 +54,7 @@
 					"// Configure the connection to the data lake\n",
 					"var adlsPath = \"abfss://wwi@azsynapseaiddl.dfs.core.windows.net\";"
 				],
+				"attachments": null,
 				"execution_count": 3
 			},
 			{
@@ -63,6 +65,7 @@
 					"sales.Show(5);\n",
 					"sales.PrintSchema();"
 				],
+				"attachments": null,
 				"execution_count": 4
 			},
 			{
@@ -99,6 +102,7 @@
 					"    .Mode(\"append\")\n",
 					"    .Save();"
 				],
+				"attachments": null,
 				"execution_count": 6
 			}
 		]

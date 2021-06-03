@@ -44,9 +44,8 @@
 				"nodeCount": 10,
 				"cores": 4,
 				"memory": 28,
-				"automaticScaleJobs": false
-			},
-			"sessionKeepAliveTimeout": 30
+				"extraHeader": null
+			}
 		},
 		"cells": [
 			{
@@ -63,6 +62,7 @@
 					")\r\n",
 					"df.count()"
 				],
+				"attachments": null,
 				"execution_count": 6
 			}
 		]
