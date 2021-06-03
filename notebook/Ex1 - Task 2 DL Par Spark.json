@@ -2314,6 +2314,31 @@
 					"display(df.limit(100))"
 				],
 				"execution_count": 2
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"data_path = spark.read.load(\r\n",
+					"   'abfss://wwi@azsynapseaiddl.dfs.core.windows.net/factsale-csv/2012/Q1/*/*',\r\n",
+					"   format='csv',\r\n",
+					"   sep=\"|\",\r\n",
+					"   header=True)\r\n",
+					"\r\n",
+					"display(data_path.limit(100))"
+				],
+				"execution_count": 3
 			}
 		]
 	}
