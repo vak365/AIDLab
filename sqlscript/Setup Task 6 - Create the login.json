@@ -1,11 +1,11 @@
 {
-	"name": "Create the login",
+	"name": "Setup Task 6 - Create the login",
 	"properties": {
 		"folder": {
 			"name": "Setup"
 		},
 		"content": {
-			"query": "CREATE LOGIN [asa.sql.staging]\nWITH PASSWORD = 'Temp1234'\nGO\n\n\nCREATE USER [asa.sql.staging]\n    FOR LOGIN [asa.sql.staging]\n    WITH DEFAULT_SCHEMA = dbo\nGO\n\n-- Add user to the required roles\n\nEXEC sp_addrolemember N'db_datareader', N'asa.sql.staging'\nGO\n\nEXEC sp_addrolemember N'db_datawriter', N'asa.sql.staging'\nGO\n\nEXEC sp_addrolemember N'db_ddladmin', N'asa.sql.staging'\nGO",
+			"query": "CREATE LOGIN [asa.sql.staging]\nWITH PASSWORD = 'Temp1234'\nGO\n\n\nCREATE USER [asa.sql.staging]\n    FOR LOGIN [asa.sql.staging]\n    WITH DEFAULT_SCHEMA = dbo\nGO\n\n-- Add user to the required roles\n\nEXEC sp_addrolemember N'db_datareader', N'asa.sql.staging'\nGO\n\nEXEC sp_addrolemember N'db_datawriter', N'asa.sql.staging'\nGO\n\nEXEC sp_addrolemember N'db_ddladmin', N'asa.sql.staging'\nGO\n\n--Create user in DB\nCREATE USER [az-synapse-aid-lab-ws] FROM EXTERNAL PROVIDER;\n\n--Granting permission to the identity\nGRANT CONTROL ON DATABASE::sqlpool01 TO [az-synapse-aid-lab-ws];",
 			"metadata": {
 				"language": "sql"
 			},
