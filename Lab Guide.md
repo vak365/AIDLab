@@ -313,22 +313,7 @@ For each additional user that needs to have access to `Workspace` and run exerci
 
 5. Assign the `Contributor` role on the Power BI workspace of the `MasterUser` created in Task 5, step 2.
 
-## Task 11 - Create and configure an Azure Databricks workspace
-
-1. In the resource group, create a new Azure Databricks workspace.
-
-2. In the Azure Databricks workspace, create a new cluster with the following configuration:
-![Create new Databricks cluster](./media/00-create-databricks-cluster.png)
-
-3. On the newly created cluster, install the `onnxmltools` PyPi library:
-![Install Databricks cluster libraries](./media/00-install-databricks-cluster-libraries.png)
-
-4. Import the following Databricks notebooks into the `Shared` section of the Databricks workspace:
-
-Spark notebook name | Source code | Replacements
---- | --- | ---
-`Exercise 5 - Model Training` | [Exercise 5 - Model Training.dbc](Artifacts/Databricks/Exercise%205%20-%20Model%20Training.dbc) |
-<br/><br/><br/>
+<br/><br/>
 
 # Exercise 1 - Explore the Data Lake with Azure Synapse serverless SQL pool and Azure Synapse Spark
 
