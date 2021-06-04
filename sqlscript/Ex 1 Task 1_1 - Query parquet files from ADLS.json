@@ -1,5 +1,5 @@
 {
-	"name": "Ex 1 Task 1 - Query parquet files from ADLS",
+	"name": "Ex 1 Task 1_1 - Query parquet files from ADLS",
 	"properties": {
 		"folder": {
 			"name": "Exercise 1"
