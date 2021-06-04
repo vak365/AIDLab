@@ -1,6 +1,9 @@
 {
-	"name": "Exercise 5 - Predict with model",
+	"name": "Ex 5 Task 1 - Predict with model",
 	"properties": {
+		"folder": {
+			"name": "Exercise 5"
+		},
 		"content": {
 			"query": "-- Retrieve the latest hex encoded ONNX model from the table\nDECLARE @model varbinary(max) = (SELECT Model FROM [wwi_ml].[MLModel] WHERE Id = (SELECT Top(1) max(ID) FROM [wwi_ml].[MLModel]));\n\n-- Run a prediction query\nSELECT d.*, p.*\nFROM PREDICT(MODEL = @model, DATA = [wwi].[SampleData] AS d,RUNTIME = ONNX) WITH (prediction real) AS p;\n\n-- Store a batch of predictions\nINSERT INTO PredictionResults\nSELECT d.*, p.Score\nFROM PREDICT(MODEL = @model, DATA = [wwi].[SampleData] AS d,RUNTIME = ONNX) WITH (prediction real) AS p;",
 			"metadata": {

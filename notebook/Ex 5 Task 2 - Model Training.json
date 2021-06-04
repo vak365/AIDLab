@@ -1,6 +1,9 @@
 {
-	"name": "Exercise 5 - Model Training",
+	"name": "Ex 5 Task 2 - Model Training",
 	"properties": {
+		"folder": {
+			"name": "Exercise 5"
+		},
 		"nbformat": 0,
 		"nbformat_minor": 0,
 		"sessionProperties": {
@@ -26,7 +29,8 @@
 			},
 			"language_info": {
 				"name": "python"
-			}
+			},
+			"sessionKeepAliveTimeout": 30
 		},
 		"cells": [
 			{
@@ -34,8 +38,7 @@
 				"source": [
 					"# Model training and registration\n",
 					"This notebook show the process for training the model, converting the model to ONNX and uploading the ONNX model to Azure Storage."
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "markdown",
@@ -43,8 +46,7 @@
 					"## Explore the training data\n",
 					"The following cells load the source CSV file into a Spark DataFrame and create a temporary view that can be used to query the data with Spark SQL.\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -54,7 +56,6 @@
 					", header=True, sep=\"|\"\r\n",
 					")"
 				],
-				"attachments": null,
 				"execution_count": 35
 			},
 			{
@@ -62,7 +63,6 @@
 				"source": [
 					"df.createOrReplaceTempView(\"facts\")"
 				],
-				"attachments": null,
 				"execution_count": 36
 			},
 			{
@@ -73,7 +73,6 @@
 				"source": [
 					"display(spark.sql(\"SELECT * FROM facts WHERE `Customer Key` == '11' ORDER BY `Stock Item Key`\"))"
 				],
-				"attachments": null,
 				"execution_count": 37
 			},
 			{
@@ -83,8 +82,7 @@
 					"In the following cells we load a subset of the data that just contains the fields needed for training. \n",
 					"\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -98,7 +96,6 @@
 					"print(\"Number of records:\", df3.count())\n",
 					"df3.show(10)"
 				],
-				"attachments": null,
 				"execution_count": 38
 			},
 			{
@@ -106,8 +103,7 @@
 				"source": [
 					"Now, we split our DataFrame into training and testing DataFrames.\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -119,7 +115,6 @@
 					"# Split the dataframe into test and training dataframes\n",
 					"df_train, df_test = df3.randomSplit([trainingFraction, testingFraction], seed=seed)"
 				],
-				"attachments": null,
 				"execution_count": 39
 			},
 			{
@@ -127,8 +122,7 @@
 				"source": [
 					"Next, we package the data into the format expected by SPark ML's LinearRegression. It requires a DataFrame with two columns- `features` and a column with the labels to predict (`quantity` in this case).\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -137,7 +131,6 @@
 					"\n",
 					"vectorAssembler = VectorAssembler(inputCols = ['customerkey', 'stockitemkey'], outputCol = 'features')"
 				],
-				"attachments": null,
 				"execution_count": 40
 			},
 			{
@@ -151,8 +144,7 @@
 				},
 				"source": [
 					"In the following cell, we create the LinearRegression model."
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -173,7 +165,6 @@
 					"\n",
 					"lin_reg = LinearRegression(featuresCol = 'features', labelCol='quantity', maxIter = 10, regParam=0.3)"
 				],
-				"attachments": null,
 				"execution_count": 41
 			},
 			{
@@ -187,8 +178,7 @@
 				},
 				"source": [
 					"Next, we build the training pipeline."
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -213,7 +203,6 @@
 					"\n",
 					"partialPipeline = Pipeline().setStages(stages)"
 				],
-				"attachments": null,
 				"execution_count": 42
 			},
 			{
@@ -221,8 +210,7 @@
 				"source": [
 					"In the following cell, we train our LinearRegression model.\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -232,7 +220,6 @@
 					"print(\"Coefficients: \" + str(pipelineModel.stages[-1].coefficients))\n",
 					"print(\"Intercept: \" + str(pipelineModel.stages[-1].intercept))"
 				],
-				"attachments": null,
 				"execution_count": 43
 			},
 			{
@@ -240,8 +227,7 @@
 				"source": [
 					"With a trained model in hand, we can use it to make predictions against the test DataFrame.\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -254,7 +240,6 @@
 					"from pyspark.sql.functions import rand\n",
 					"display(df_pred.select([\"quantity\",  \"prediction\"]).orderBy(rand()).limit(5))"
 				],
-				"attachments": null,
 				"execution_count": 44
 			},
 			{
@@ -263,8 +248,7 @@
 					"## Convert model to ONNX\n",
 					"In the cells that follow, we convert the model to ONNX and show how an output of how ONNX represents the Spark ML model.\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -277,7 +261,6 @@
 					"    (\"stockitemkey\", FloatTensorType([1, 1]))\n",
 					"]"
 				],
-				"attachments": null,
 				"execution_count": 53
 			},
 			{
@@ -286,7 +269,6 @@
 					"model_onnx = convert_sparkml(pipelineModel, 'sparkml GeneralizedLinearRegression', initial_types)\n",
 					"model_onnx"
 				],
-				"attachments": null,
 				"execution_count": 54
 			},
 			{
@@ -295,8 +277,7 @@
 					"## Upload the model to Azure Storage\n",
 					"In the cells that follow we save the ONNX model to the storage of Spark driver node temporarily. Then we use the Azure Storage Python SDK to upload the ONNX model to Azure Storage.\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -304,7 +285,6 @@
 					"with open(\"model.onnx\", \"wb\") as f:\n",
 					"    f.write(model_onnx.SerializeToString())"
 				],
-				"attachments": null,
 				"execution_count": 47
 			},
 			{
@@ -319,7 +299,6 @@
 					"with open(\"./model.onnx\", \"rb\") as data:\n",
 					"    blob.upload_blob(data,overwrite=True)"
 				],
-				"attachments": null,
 				"execution_count": 48
 			}
 		]

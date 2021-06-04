@@ -1,6 +1,9 @@
 {
 	"name": "Exercise 5 - Create Sample Data for Predict",
 	"properties": {
+		"folder": {
+			"name": "Exercise 5"
+		},
 		"content": {
 			"query": "DROP TABLE [wwi].[SampleData]; \n\n\nCREATE TABLE [wwi].[SampleData] \n(\n    [customerkey] REAL, \n    [stockitemkey] REAL\n);\n\n\nINSERT INTO [wwi].[SampleData] ([customerkey], [stockitemkey])\nVALUES ( 11, 1 );\n\n\nSELECT * FROM [wwi].[SampleData];\n\n\n",
 			"metadata": {
