@@ -251,14 +251,12 @@ Pipeline | Source code
 
     [Refer here](Artifacts/SQL%20Files/Setup%20Task%206_2%20-%20Create%20the%20login.sql)
 
-<mark>
-6. Run the `Import WWI Data` pipeline to import all data except the sale facts into `SQLPool01`.</mark>
-<br/>
-<mark>
-7. Run the `Import WWI Data - Fact Sale Full` pipeline to import the sale facts into `SQLPool01`.</mark>
-<br/>
-<mark>
-8. Run the `Import WWI Perf Data - Fact Sale Fast` and `Import WWI Perf Data - Fact Sale Slow` pipelines to import the large-sized sale facts into `SQLPool01`.</mark>
+>
+6. Run the `Import WWI Data` pipeline to import all data except the sale facts into `SQLPool01`.
+
+7. Run the `Import WWI Data - Fact Sale Full` pipeline to import the sale facts into `SQLPool01`.
+
+8. Run the `Import WWI Perf Data - Fact Sale Fast` and `Import WWI Perf Data - Fact Sale Slow` pipelines to import the large-sized sale facts into `SQLPool01`.
 
 
 ## Task 7 - Configure Power BI
@@ -280,9 +278,9 @@ SQL script name | Source code | Replacements
 `Ex 1 Task 1_2 - Read with SQL on-demand` | [Ex 1 Task 1_2 - Read with SQL on-demand.sql](Artifacts/SQL%20Files/Ex%201%20Task%201_2%20-%20Read%20with%20SQL%20on-demand.sql) | `<primary_storage>` with the actual name of `PrimaryStorage`
 `Ex 4 Task 1 - Analyze Transactions` | [Ex 4 Task 1 - Analyze Transactions.sql](Artifacts/SQL%20Files/Ex%204%20Task%201%20-%20Analyze%20Transactions.sql) | None
 `Ex 4 Task 2 - Investigate query performance` | [Ex 4 Task 2 - Investigate query performance.sql](Artifacts/SQL%20Files/Ex%204%20Task%202%20-%20Investigate%20query%20performance.sql) | None
-`Exercise 5 - Create Sample Data for Predict` | [Exercise 5 - Create Sample Data for Predict.sql](Artifacts/SQL%20Files/Exercise%205%20-%20Create%20Sample%20Data%20for%20Predict.sql) | None
-`Ex 5 Task 1 - Predict with model` | [Ex 5 Task 1 - Predict with model.sql](Artifacts/SQL%20Files/Ex%205%20Task%201%20-%20Predict%20with%20model.sql) | None
-`Exercise 5 - Register model` | [Exercise 5 - Register model.sql](Artifacts/SQL%20Files/Exercise%205%20-%20Register%20model.sql) | `<blob_storage_account_key>` with the storage account key of `BlobStorage`; `<blob_storage>` with the storage account name of `BlobStorage`
+`Ex 5 Task 1_1 - Create sample Data for Predict` | [Ex 5 Task 1_1 - Create sample Data for Predict](Artifacts/SQL%20Files/Ex%205%20Task%201_1%20-%20Create%20Sample%20Data%20for%20Predict.sql) | None
+`Ex 5 Task 2 - Predict with model` | [Ex 5 Task 1 - Predict with model.sql](Artifacts/SQL%20Files/Ex%205%20Task%202%20-%20Predict%20with%20model.sql) | None
+`Ex 5 Task 1_2 - Register model` | [Ex 5 Task 1_2 - Register model.sql](Artifacts/SQL%20Files/Ex%205%20Task%201_2%20-%20Register%20model.sql) | `<blob_storage_account_key>` with the storage account key of `BlobStorage`; `<blob_storage>` with the storage account name of `BlobStorage`
 
 Import the following Spark notebooks into `Workspace`:
 
@@ -293,30 +291,6 @@ Spark notebook name | Source code | Replacements
 <!-- `Exercise 1 - Read with Spark` | [Exercise 1 - Read with Spark.ipynb](Artifacts/Notebooks/Exercise%201%20-%20Read%20with%20Spark.ipynb) | `<primary_storage>` with the actual name of `PrimaryStorage`
 `Exercise 2 - Ingest Sales Data` | [Exercise 2 - Ingest Sales Data.ipynb](./artifacts/02/Exercise%202%20-%20Ingest%20Sales%20Data.ipynb) | In cell 1 - `<primary_storage>` with the actual name of `PrimaryStorage` -->
 
-## Task 9 - Prepare a machine learning model
-
-Prepare the `models` container in `BlobStorage` by creating two folders: `onnx` and `hex`.
-
-To prepare the machine learning model for Exercise 5, you have two options:
-
-- Use the already trained and converted machine learning model (available as a starter artifact)
-- Train and convert a new machine learning model
-
-### Import the already trained and converted machine learning model
-
-1. Upload the [model.onnx.hex](Artifacts/ml/model.onnx.hex) file to the `hex` folder in the `models` container of `BlobStorage`.
-
-2. Run the `Exercise 5 - Create Sample Data for Predict` SQL script to create sample data for machine learning predictions.
-
-3. Run the `Exercise 5 - Register model` SQL script to register the model with the `SQLPool01` SQL pool.
-
-### Train and convert a new machine learning model
-
-1. Run the `Exercise 5 - Model training` Spark notebook to train the machine learning model and save it in ONNX format. The model will be saved as `model.onnx` in the `onnx` folder in the `models` container of `BlobStorage`.
-
-2. Use the [convertion PowerShell script](./artifacts/00/ml/convert-to-hex.ps1) to transform `model.onnx` into `model.onnx.hex`.
-
-3. Perform steps 1, 2, and 3 described in the previous section.
 
 ## Task 10 - Configure additional users to access the workspace
 
@@ -1026,15 +1000,7 @@ In this task, you examine the Apache Spark application monitoring capabilities b
 
     ![Read is selected and highlighted in the Display drop-down list.](media/ex02-monitor-activities-spark-applications-display-drop-down-read-graph.png "Synapse Analytics Monitor")
 
-<mark>
-6. Run the `Import WWI Data` pipeline to import all data except the sale facts into `SQLPool01`.</mark>
-<br/>
-<mark>
-7. Run the `Import WWI Data - Fact Sale Full` pipeline to import the sale facts into `SQLPool01`.</mark>
-<br/>
-<mark>
-8. Run the `Import WWI Perf Data - Fact Sale Fast` and `Import WWI Perf Data - Fact Sale Slow` pipelines to import the large-sized sale facts into `SQLPool01`.</mark>
-
+<br/><br/>
 # Exercise 3 - Power BI integration
 
 In this exercise, you will realize another benefit of the fully integrated environment provided by Azure Synapse Analytics. Here, you will create a Power BI Report and build a visualization within Synapse Analytics Studio. Once you have published a dataset, you will not have to leave this environment to log into a separate Power BI website to view and edit reports.
@@ -1247,6 +1213,8 @@ In this task, you will try to understand who your best customers are.
 7. For the Category column, leave the selection at `(none)`.
 8. For the Legend (series) column, select `CustomerKey`.
 
+    [Refer here](Artifacts/SQL%20Files/Ex%204%20Task%201%20-%20Analyze%20Transactions.sql)
+
 ![Example Chart](media/ex05-chart.png "Example chart")
 
 ## Task 2 - Investigate query performance and table design
@@ -1255,7 +1223,7 @@ In this task, you will try to understand the implications of the table design at
 
 First, let us set the stage by performing the following steps:
 
-1. Under **SQL Scripts** in the `Develop` hub within Synapse Analytics Studio, select the script called `Exercise 4 - Investigate query performance`.
+1. Under **SQL Scripts** in the `Develop` hub within Synapse Analytics Studio, select the script called `Ex 4 Task 2 - Investigate query performance`.
 2. Change the **Connect to** drop-down to the **SQLPool01** database.
 3. Select line 1 and then select `Run`.
 
@@ -1280,6 +1248,9 @@ First, let us set the stage by performing the following steps:
    ![Run a complex query on FactSale_Fast](./media/ex04-query-selection-04.png "Run script")
 
    Re-run the query 3 to 5 times until the execution time stabilizes (usually, the first "cold" execution takes longer than subsequent ones who benefit from the initialization of various internal data and communications buffers). Make a note on the amount of time needed to run the query (typically 3 to 5 seconds).
+
+   [Refer here](Artifacts/SQL%20Files/Ex%204%20Task%202%20-%20Investigate%20query%20performance.sql)
+
 
 ## Bonus Challenge
 
@@ -1312,7 +1283,7 @@ On the other hand, `wwi_perf.FactSale_Fast` is distributed using the hash of the
 Finally, the first two queries (the counts) were not that far apart performance-wise because none of them incurred any data movement (each distribution just reported its local counts, and then the results were aggregated).
 
 This simple example demonstrates one of the core challenges of modern, massively distributed data platforms - solid design. You witnessed first-hand how one decision taken at table design time can significantly influence the performance of queries. You also got a glimpse of Azure Synapse Analytics' raw power: the more efficient table design enabled a non-trivial query involving more than 80 million records to execute in just a few seconds.
-
+<br/><br/>
 # Exercise 5 - Data Science with Azure Synapse Spark (optional)
 
 Azure Synapse Analytics provides support for using trained models (in ONNX format) directly from dedicated SQL pools. What this means in practice, is that your data engineers can write T-SQL queries that use those models to make predictions against tabular data stored in a SQL Pool database table.
@@ -1344,10 +1315,37 @@ The steps are performed using a combination of Azure Databricks and Azure Synaps
 In this exercise, the tasks you will perform are:
 
 - Exercise 5 - Data Science with Spark
-  - Task 1 - Making predictions with a trained model
-  - Task 2 - Examining the model training and registration process (Optional)
+  - Task 1 - Prepare a machine learning model
+  - Task 2 - Making predictions with a trained model
+  - Task 3 - Examining the model training and registration process (Optional)
 
-## Task 1 - Making predictions with a trained model
+## Task 1 - Prepare a machine learning model
+
+Prepare the `models` container in `BlobStorage` by creating two folders: `onnx` and `hex`.
+
+To prepare the machine learning model for Exercise 5, you have two options:
+
+- Use the already trained and converted machine learning model (available as a starter artifact)
+- Train and convert a new machine learning model
+
+### Import the already trained and converted machine learning model
+
+1. Upload the [model.onnx.hex](Artifacts/ml/model.onnx.hex) file to the `hex` folder in the `models` container of `BlobStorage`.
+
+2. Run the `Ex 5 Task 1_1 - Create sample Data for Predict` SQL script to create sample data for machine learning predictions.
+
+3. Run the `Ex 5 Task 1_2 - Register model` SQL script to register the model with the `SQLPool01` SQL pool.
+
+### Train and convert a new machine learning model
+
+1. Run the `Ex 5 Task 3 - Model Training` Spark notebook to train the machine learning model and save it in ONNX format. The model will be saved as `model.onnx` in the `onnx` folder in the `models` container of `BlobStorage`.
+
+2. Use the [convertion PowerShell script](Artifacts/ml/convert-to-hex.ps1) to transform `model.onnx` into `model.onnx.hex`.
+
+3. Perform steps 1, 2, and 3 described in the previous section.
+
+
+## Task 2 - Making predictions with a trained model
 
 In this task, you will author a T-SQL query that uses a pre-trained model to make predictions.
 
@@ -1374,9 +1372,12 @@ In this task, you will author a T-SQL query that uses a pre-trained model to mak
 
 5. View the results, notice that the `Prediction` column is the model's prediction of how many items of the kind represented by `StockItemKey` that the customer identified by `CustomerKey` will purchase.
 
+    [Refer here](Artifacts/SQL%20Files/Ex%205%20Task%202%20-%20Predict%20with%20model.sql)
+
+
    ![Viewing the prediction results in the query result pane](media/ex05-view-prediction-results.png "View prediction results")
 
-## Task 2 - Examining the model training and registration process (Optional)
+## Task 3 - Examining the model training and registration process (Optional)
 
 You can see the notebook and SQL scripts that were used to train and register this model if you are curious. To do so, follow these steps:
 
@@ -1388,8 +1389,8 @@ You can see the notebook and SQL scripts that were used to train and register th
 
 4. Execute the notebook to get the trained Machine Learning model in ONNX format.
 
-5. One step that is not shown by the notebook is an offline step that converts the ONNX model to hexadecimal. The resulting hex-encoded model is also uploaded to Azure Storage. This conversion is currently performed with [this PowerShell script](./artifacts/00/ml/convert-to-hex.ps1), but could be automated using any scripting platform.
+5. One step that is not shown by the notebook is an offline step that converts the ONNX model to hexadecimal. The resulting hex-encoded model is also uploaded to Azure Storage. This conversion is currently performed with [this PowerShell script](Artifacts/ml/convert-to-hex.ps1), but could be automated using any scripting platform.
 
-6. Once you have read through the notebook, return to the `Develop` hub, expand **SQL scripts** and select `Exercise 5 - Register model`. View, but **do not run this script**.
+6. Once you have read through the notebook, return to the `Develop` hub, expand **SQL scripts** and select `Ex 5 Task 1_2 - Register model`. View, but **do not run this script**.
 
 7. This script uses PolyBase to load the hex-encoded model from Azure Storage into a table within the SQL Pool database. Once the model is inserted into the table in this way, it is available for use by the Predict statement as was shown in Task 1.
