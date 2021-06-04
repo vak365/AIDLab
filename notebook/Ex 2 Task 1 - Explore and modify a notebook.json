@@ -1,6 +1,9 @@
 {
-	"name": "Exercise 2 - Task1",
+	"name": "Ex 2 Task 1 - Explore and modify a notebook",
 	"properties": {
+		"folder": {
+			"name": "Exercise 2"
+		},
 		"nbformat": 4,
 		"nbformat_minor": 2,
 		"bigDataPool": {
@@ -44,8 +47,9 @@
 				"nodeCount": 10,
 				"cores": 4,
 				"memory": 28,
-				"extraHeader": null
-			}
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
 		},
 		"cells": [
 			{
@@ -64,7 +68,6 @@
 					"// Set the path to the ADLS Gen2 account\r\n",
 					"val adlsPath = \"abfss://wwi@azsynapseaiddl.dfs.core.windows.net\""
 				],
-				"attachments": null,
 				"execution_count": 1
 			},
 			{
@@ -92,7 +95,6 @@
 					"sales.show(5)\r\n",
 					"sales.printSchema()"
 				],
-				"attachments": null,
 				"execution_count": 2
 			},
 			{
@@ -126,7 +128,6 @@
 					"// Write the retrieved sales data into a staging table in Azure Synapse Analytics.\r\n",
 					"sales.limit(10000).write.mode(SaveMode.Append).sqlanalytics(tableName, Constants.INTERNAL)"
 				],
-				"attachments": null,
 				"execution_count": 3
 			},
 			{
@@ -146,7 +147,6 @@
 				"source": [
 					""
 				],
-				"attachments": null,
 				"execution_count": null
 			}
 		]
