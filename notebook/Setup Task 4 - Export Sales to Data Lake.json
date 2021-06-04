@@ -1,6 +1,9 @@
 {
-	"name": "Setup - Export Sales to Data Lake",
+	"name": "Setup Task 4 - Export Sales to Data Lake",
 	"properties": {
+		"folder": {
+			"name": "Setup"
+		},
 		"nbformat": 0,
 		"nbformat_minor": 0,
 		"bigDataPool": {
@@ -44,8 +47,9 @@
 				"nodeCount": 10,
 				"cores": 4,
 				"memory": 28,
-				"extraHeader": null
-			}
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
 		},
 		"cells": [
 			{
@@ -85,7 +89,6 @@
 					"    .withColumnRenamed('Total Chiller Items', 'TotalChillerItems') \\\n",
 					"    .withColumnRenamed('Lineage Key', 'LineageKey')"
 				],
-				"attachments": null,
 				"execution_count": 2
 			},
 			{
@@ -95,7 +98,6 @@
 					"from datetime import datetime\n",
 					"from dateutil.relativedelta import relativedelta"
 				],
-				"attachments": null,
 				"execution_count": 3
 			},
 			{
@@ -103,8 +105,7 @@
 				"source": [
 					"### Export WWI sales data to parquet files\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -130,7 +131,6 @@
 					"\n",
 					"    start_date = end_date + relativedelta(days=1)"
 				],
-				"attachments": null,
 				"execution_count": 4
 			},
 			{
@@ -138,8 +138,7 @@
 				"source": [
 					"### Export WWI sales data to CSV files\n",
 					""
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -167,7 +166,6 @@
 					"\n",
 					"    start_date = end_date + relativedelta(days=1)"
 				],
-				"attachments": null,
 				"execution_count": 5
 			}
 		]
