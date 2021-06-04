@@ -150,7 +150,7 @@ The following data flows must be imported:
 
 Data flow | Source code
 --- | ---
-`EnrichCustomerData` | [EnrichCustomerData.json](./artifacts/00/dataflows/EnrichCustomerData.json)
+`EnrichCustomerData` | [EnrichCustomerData.json](dataflow/EnrichCustomerData.json)
 
 ### Import pipelines
 
@@ -166,15 +166,16 @@ The following pipelines must be imported:
 
 Pipeline | Source code
 --- | ---
-`Exercise 2 - Enrich Data` | [Exercise 2 - Enrich Data.json](./artifacts/00/pipelines/Exercise%202%20-%20Enrich%20Data.json)
-`Import WWI Data` | [Import WWI Data.json](./artifacts/00/pipelines/Import%20WWI%20Data.json)
-`Import WWI Data - Fact Sale Full` | [Import WWI Data - Fact Sale Full.json](./artifacts/00/pipelines/Import%20WWI%20Data%20-%20Fact%20Sale%20Full.json)
-`Import WWI Perf Data - Fact Sale Fast` | [Import WWI Perf Data - Fact Sale Fast.json](./artifacts/00/pipelines/Import%20WWI%20Perf%20Data%20-%20Fact%20Sale%20Fast.json)
-`Import WWI Perf Data - Fact Sale Slow` | [Import WWI Perf Data - Fact Sale Slow.json](./artifacts/00/pipelines/Import%20WWI%20Perf%20Data%20-%20Fact%20Sale%20Slow.json)
+`Exercise 2 - Enrich Data` | [Exercise 2 - Enrich Data.json](pipeline/Exercise%202%20-%20Enrich%20Data.json)
+`Import WWI Data` | [Import WWI Data.json](pipeline/Import%20WWI%20Data.json)
+`Import WWI Data - Fact Sale Full` | [Import WWI Data - Fact Sale Full.json](pipeline/Import%20WWI%20Data%20-%20Fact%20Sale%20Full.json)
+`Import WWI Perf Data - Fact Sale Fast` | [Import WWI Perf Data - Fact Sale Fast.json](pipeline/Import%20WWI%20Perf%20Data%20-%20Fact%20Sale%20Fast.json)
+`Import WWI Perf Data - Fact Sale Slow` | [Import WWI Perf Data - Fact Sale Slow.json](pipeline/Import%20WWI%20Perf%20Data%20-%20Fact%20Sale%20Slow.json)
 
 ## Task 4 - Populate `PrimaryStorage` with data
 
-1. Import the [Setup - Export Sales to Data Lake](./artifacts/00/notebooks/Setup%20-%20Export%20Sales%20to%20Data%20Lake.ipynb) notebook.
+1. Import the [Setup Task 4 - Export Sales to Data Lake](
+    Artifacts/Notebooks/Setup%20Task%204%20-%20Export%20Sales%20to%20Data%20Lake.ipynb) notebook.
 
 2. Replace `<primary_storage>` with the actual data lake account name of `PrimaryStorage` in cells 1, 4, and 6.
 
@@ -197,11 +198,13 @@ Pipeline | Source code
 
     In the script above, replace `<primary_storage>` with the name of `PrimaryStorage`.
 
+    [Refer here](Artifacts/SQL%20Files/Setup%20Task%205%20-%20Configure%20the%20SQL%20on-demand%20pool.sql)
+
 ## Task 6 - Configure `SQLPool01`
 
 1. Connect with either the SQL Active Directory admin or the `asa.sql.admin` account to `SQLPool01` using the tool of your choice.
 
-2. Run the [WWI-Reset-SQLPoolSchema](./artifacts/00/sql/WWI-Reset-SQLPool-Schema.sql) SQL script to initialize the schema of the SQL pool.
+2. Run the [Setup Task 6_1 - Configure SQLPool01](Artifacts/SQL%20Files/Setup%20Task%206_1%20-%20Configure%20SQLPool01.sql) SQL script to initialize the schema of the SQL pool.
 
 3. Create the `asa.sql.staging` login in the `master` database of `Workspace` using the following script:
 
@@ -233,6 +236,7 @@ Pipeline | Source code
     GO
     ```
 
+    
 5. Configure access control to workspace pipeline runs in `SQLPool01` using the following script:
 
     ```sql
@@ -245,11 +249,17 @@ Pipeline | Source code
 
     In the script above, replace `<workspace>` with the actual name of `Workspace` and `<sqlpool>` with the actual name of `SQLPool01`.
 
-6. Run the `Import WWI Data` pipeline to import all data except the sale facts into `SQLPool01`.
+    [Refer here](Artifacts/SQL%20Files/Setup%20Task%206_2%20-%20Create%20the%20login.sql)
 
-7. Run the `Import WWI Data - Fact Sale Full` pipeline to import the sale facts into `SQLPool01`.
+<mark>
+6. Run the `Import WWI Data` pipeline to import all data except the sale facts into `SQLPool01`.</mark>
+<br/>
+<mark>
+7. Run the `Import WWI Data - Fact Sale Full` pipeline to import the sale facts into `SQLPool01`.</mark>
+<br/>
+<mark>
+8. Run the `Import WWI Perf Data - Fact Sale Fast` and `Import WWI Perf Data - Fact Sale Slow` pipelines to import the large-sized sale facts into `SQLPool01`.</mark>
 
-8. Run the `Import WWI Perf Data - Fact Sale Fast` and `Import WWI Perf Data - Fact Sale Slow` pipelines to import the large-sized sale facts into `SQLPool01`.
 
 ## Task 7 - Configure Power BI
 
@@ -257,7 +267,7 @@ Pipeline | Source code
 
 2. Sign in to the [Power BI portal](https://powerbi.com) using the credentials of `MasterUser` and create a new Power BI workspace. In the remainder of this guide, this workspace will be referred to as `PowerBIWorkspace`.
 
-3. Perform all the steps described in [Exercise 3 - Task 1](03-power-bi-integration.md##task-1---create-a-power-bi-dataset-in-synapse). In step 11, instead of using the suggested naming convention, name your dataset `wwifactsales`.
+3. Perform all the steps described in [Exercise 3 - Task 1](Lab%20Guide.md##task-1---create-a-power-bi-dataset-in-synapse). In step 11, instead of using the suggested naming convention, name your dataset `wwifactsales`.
 
 4. In the Power BI portal, edit the security settings of the `wwifactsales` dataset and configure it to authenticate to `SQLPool01` using the credentials of the `asa.sql.admin` account. This allows the `Direct Query` option to work correctly for all participants in the lab.
 
@@ -267,20 +277,21 @@ Import the following SQL scripts into `Workspace`:
 
 SQL script name | Source code | Replacements
 --- | --- | ---
-`Exercise 1 - Read with SQL on-demand` | [Exercise 1 - Read with SQL on-demand.sql](./artifacts/01/Exercise%201%20-%20Read%20with%20SQL%20on-demand.sql) | `<primary_storage>` with the actual name of `PrimaryStorage`
-`Exercise 4 - Analyze Transactions` | [Exercise 4 - Analyze Transactions.sql](./artifacts/04/Exercise%204%20-%20Analyze%20Transactions.sql) | None
-`Exercise 4 - Investigate query performance` | [Exercise 4 - Investigate query performance.sql](./artifacts/04/Exercise%204%20-%20Investigate%20query%20performance.sql) | None
-`Exercise 5 - Create Sample Data for Predict` | [Exercise 5 - Create Sample Data for Predict.sql](./artifacts/05/Exercise%205%20-%20Create%20Sample%20Data%20for%20Predict.sql) | None
-`Exercise 5 - Predict with model` | [Exercise 5 - Predict with model.sql](./artifacts/05/Exercise%205%20-%20Predict%20with%20model.sql) | None
-`Exercise 5 - Register model` | [Exercise 5 - Register model.sql](./artifacts/05/Exercise%205%20-%20Register%20model.sql) | `<blob_storage_account_key>` with the storage account key of `BlobStorage`; `<blob_storage>` with the storage account name of `BlobStorage`
+`Ex 1 Task 1_2 - Read with SQL on-demand` | [Ex 1 Task 1_2 - Read with SQL on-demand.sql](Artifacts/SQL%20Files/Ex%201%20Task%201_2%20-%20Read%20with%20SQL%20on-demand.sql) | `<primary_storage>` with the actual name of `PrimaryStorage`
+`Ex 4 Task 1 - Analyze Transactions` | [Ex 4 Task 1 - Analyze Transactions.sql](Artifacts/SQL%20Files/Ex%204%20Task%201%20-%20Analyze%20Transactions.sql) | None
+`Ex 4 Task 2 - Investigate query performance` | [Ex 4 Task 2 - Investigate query performance.sql](Artifacts/SQL%20Files/Ex%204%20Task%202%20-%20Investigate%20query%20performance.sql) | None
+`Exercise 5 - Create Sample Data for Predict` | [Exercise 5 - Create Sample Data for Predict.sql](Artifacts/SQL%20Files/Exercise%205%20-%20Create%20Sample%20Data%20for%20Predict.sql) | None
+`Ex 5 Task 1 - Predict with model` | [Ex 5 Task 1 - Predict with model.sql](Artifacts/SQL%20Files/Ex%205%20Task%201%20-%20Predict%20with%20model.sql) | None
+`Exercise 5 - Register model` | [Exercise 5 - Register model.sql](Artifacts/SQL%20Files/Exercise%205%20-%20Register%20model.sql) | `<blob_storage_account_key>` with the storage account key of `BlobStorage`; `<blob_storage>` with the storage account name of `BlobStorage`
 
 Import the following Spark notebooks into `Workspace`:
 
 Spark notebook name | Source code | Replacements
 --- | --- | ---
-`Exercise 1 - Read with Spark` | [Exercise 1 - Read with Spark.ipynb](./artifacts/01/Exercise%201%20-%20Read%20with%20Spark.ipynb) | `<primary_storage>` with the actual name of `PrimaryStorage`
-`Exercise 2 - Ingest Sales Data` | [Exercise 2 - Ingest Sales Data.ipynb](./artifacts/02/Exercise%202%20-%20Ingest%20Sales%20Data.ipynb) | In cell 1 - `<primary_storage>` with the actual name of `PrimaryStorage`
-`Exercise 2 - Bonus Notebook with CSharp` | [Exercise 2 - Bonus Notebook with CSharp.ipynb](./artifacts/02/Exercise%202%20-%20Bonus%20Notebook%20with%20CSharp.ipynb) | In cell 1 - `<primary_storage>` with the actual name of `PrimaryStorage`; In cell 3 - `<sql_staging_password>` with the password of `asa.sql.staging` created above in Task 4, step 3; In cell 3 - `<workspace>` with the name of the `Workspace`; In cell 3 - `<sql_pool>` with the name of `SQLPool1`
+`Ex 2 - Bonus Notebook with CSharp` | [Ex 2 - Bonus Notebook with CSharp.ipynb](Artifacts/Notebooks/Ex%202%20-%20Bonus%20Notebook%20with%20CSharp.ipynb) | In cell 1 - `<primary_storage>` with the actual name of `PrimaryStorage`; In cell 3 - `<sql_staging_password>` with the password of `asa.sql.staging` created above in Task 4, step 3; In cell 3 - `<workspace>` with the name of the `Workspace`; In cell 3 - `<sql_pool>` with the name of `SQLPool1`
+
+<!-- `Exercise 1 - Read with Spark` | [Exercise 1 - Read with Spark.ipynb](Artifacts/Notebooks/Exercise%201%20-%20Read%20with%20Spark.ipynb) | `<primary_storage>` with the actual name of `PrimaryStorage`
+`Exercise 2 - Ingest Sales Data` | [Exercise 2 - Ingest Sales Data.ipynb](./artifacts/02/Exercise%202%20-%20Ingest%20Sales%20Data.ipynb) | In cell 1 - `<primary_storage>` with the actual name of `PrimaryStorage` -->
 
 ## Task 9 - Prepare a machine learning model
 
@@ -293,7 +304,7 @@ To prepare the machine learning model for Exercise 5, you have two options:
 
 ### Import the already trained and converted machine learning model
 
-1. Upload the [model.onnx.hex](./artifacts/00/ml/model.onnx.hex) file to the `hex` folder in the `models` container of `BlobStorage`.
+1. Upload the [model.onnx.hex](Artifacts/ml/model.onnx.hex) file to the `hex` folder in the `models` container of `BlobStorage`.
 
 2. Run the `Exercise 5 - Create Sample Data for Predict` SQL script to create sample data for machine learning predictions.
 
@@ -330,7 +341,23 @@ For each additional user that needs to have access to `Workspace` and run exerci
 
 ## Task 11 - Create and configure an Azure Databricks workspace
 
-1. In the resource# Exercise 1 - Explore the Data Lake with Azure Synapse serverless SQL pool and Azure Synapse Spark
+1. In the resource group, create a new Azure Databricks workspace.
+
+2. In the Azure Databricks workspace, create a new cluster with the following configuration:
+![Create new Databricks cluster](./media/00-create-databricks-cluster.png)
+
+3. On the newly created cluster, install the `onnxmltools` PyPi library:
+![Install Databricks cluster libraries](./media/00-install-databricks-cluster-libraries.png)
+
+4. Import the following Databricks notebooks into the `Shared` section of the Databricks workspace:
+
+Spark notebook name | Source code | Replacements
+--- | --- | ---
+`Exercise 5 - Model Training` | [Exercise 5 - Model Training.dbc](Artifacts/Databricks/Exercise%205%20-%20Model%20Training.dbc) |
+<br/><br/><br/>
+
+# Exercise 1 - Explore the Data Lake with Azure Synapse serverless SQL pool and Azure Synapse Spark
+
 
 In this exercise, you will explore data using the engine of your choice (SQL or Spark).
 
