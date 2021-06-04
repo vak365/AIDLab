@@ -1,6 +1,9 @@
 {
 	"name": "Ex 1 Task 1 - Query parquet files from ADLS",
 	"properties": {
+		"folder": {
+			"name": "Exercise 1"
+		},
 		"content": {
 			"query": "SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://azsynapseaiddl.dfs.core.windows.net/wwi/factsale-parquet/2012/Q1/InvoiceDateKey=2012-01-01/part-00007-82fb0c25-17e0-4fc1-8f67-dd23466240a5.c000.snappy.parquet',\n        FORMAT='PARQUET'\n    ) AS [result]\n\n\nSELECT\n   COUNT(*)\nFROM\n    OPENROWSET(\n        BULK 'https://azsynapseaiddl.dfs.core.windows.net/wwi/factsale-parquet/2012/Q1/InvoiceDateKey=2012-01-01/part-00007-82fb0c25-17e0-4fc1-8f67-dd23466240a5.c000.snappy.parquet',\n        FORMAT='PARQUET'\n    ) AS [result]\n",
 			"metadata": {
