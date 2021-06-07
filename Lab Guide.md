@@ -8,7 +8,7 @@
 
 3. In the resource group, create an empty Azure Synapse Analytics workspace.
 
-4. Create the following file systems in the primary storage account of the workspace: `dev`, `staging`, and `wwi`. Also create a new dedicated SQL Pool in the same synapse workspace.
+4. Create the following file systems in the primary storage account of the workspace: `dev`, `staging`, and `wwi`. Also create a new dedicated SQL Pool and Apache Spark Pool in the same synapse workspace.
 
 5. Create a linked service to the dedicated pool of the workspace. Configure it to connect with username and password and use the workspace's SQL admin account credentials. It is recommended to name the linked service `sqlpool01` to simplify importing datasets, data flows, and pipelines later.
 
