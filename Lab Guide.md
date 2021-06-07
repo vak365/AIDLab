@@ -216,7 +216,7 @@ Pipeline | Source code
 
     In the script above, replace `<password>` with the actual password of the login.
 
-4. Create the `asa.sql.staging` user in `SQLPool01` using the following script:
+4. Create the `asa.sql.staging` user in `SQLPool01` (not in master database) using the following script:
 
     ```sql
     CREATE USER [asa.sql.staging]
