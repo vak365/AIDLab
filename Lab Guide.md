@@ -1323,7 +1323,7 @@ To prepare the machine learning model for Exercise 5, you have two options:
 
 ### Train and convert a new machine learning model
 
-1. Run the `Ex 5 Task 3 - Model Training` Spark notebook to train the machine learning model and save it in ONNX format. The model will be saved as `model.onnx` in the `onnx` folder in the `models` container of `BlobStorage`.
+1. Run the `Ex 5 Task 2 - Model Training` Spark notebook to train the machine learning model and save it in ONNX format. The model will be saved as `model.onnx` in the `onnx` folder in the `models` container of `BlobStorage`.
 
 2. Use the [convertion PowerShell script](Artifacts/ml/convert-to-hex.ps1) to transform `model.onnx` into `model.onnx.hex`.
 
